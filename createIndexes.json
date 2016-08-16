@@ -1,3 +1,7 @@
+DELETE /foo
+DELETE /foobar
+DELETE /bar
+
 ########################################
 
 # Create the foo index w/ default settings (shards=5, replicas=1)

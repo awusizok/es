@@ -1,3 +1,6 @@
+DELETE /company1
+DELETE /company2
+
 ########################################
  
 # Create company1 index customer
