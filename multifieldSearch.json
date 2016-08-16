@@ -1,0 +1,86 @@
+DELETE /multifield
+
+PUT /multifield
+
+# Index some example docs
+PUT /multifield/data/1
+{
+  "title": "War and Peace",
+  "author": "Leo Tolstoy",
+  "translator": [
+    "Louise Maude",
+    "Aylmer Maude"
+  ]
+}
+
+PUT /multifield/data/2
+{
+  "title": "War and Peace",
+  "author": "Leo Tolstoy",
+  "translator": "Constance Garnett"
+}
+
+PUT /multifield/data/3
+{
+  "title": "War and Peace",
+  "author": "Leo Tolstoy",
+  "translator": "Ann Dunnigan"
+}
+
+# Search for "War and Peace" by "Leo Tolstoy"
+GET /multifield/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "title": "War and Peace"
+          }
+        },
+        {
+          "match": {
+            "author": "Leo Tolstoy"
+          }
+        }
+      ]
+    }
+  }
+}
+
+# Prefer certain translators
+GET /multifield/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "title": "War and Peace"
+          }
+        },
+        {
+          "match": {
+            "author": "Leo Tolstoy"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "translator": "Constance Garnett"
+                }
+              },
+              {
+                "match": {
+                  "translator": "Louise Maude"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

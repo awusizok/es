@@ -1,0 +1,31 @@
+########################################
+ 
+# Create company1 index customer
+POST /company1/customer/hn
+{
+  "email": "hanno@nym.org",
+  "fullName" : "Hanno Nym",
+  "saltedPasswordHash" : "forgottosaltandcrypt"
+}
+
+# Create company2 index customer
+POST /company2/customer/rt
+{
+  "email": "reni@tent.de",
+  "fullName" : "Reni Tent",
+  "saltedPasswordHash" : "heretoo",
+}
+
+
+PUT /company1/_alias/companies
+
+PUT /company2/_alias/companies
+
+# show aliases
+GET _cat/aliases
+
+# search in all companies via alias
+GET /companies/customer/_search?pretty
+
+GET _cat/aliases
+

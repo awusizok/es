@@ -1,0 +1,64 @@
+DELETE /paging
+
+PUT /paging
+
+# Index some example docs
+POST /paging/data/_bulk
+{ "index": { "_id": 1 }}
+{ "title": "1" }
+{ "index": { "_id": 2 }}
+{ "title": "2" }
+{ "index": { "_id": 3 }}
+{ "title": "3" }
+{ "index": { "_id": 4 }}
+{ "title": "4" }
+{ "index": { "_id": 5 }}
+{ "title": "5" }
+{ "index": { "_id": 6 }}
+{ "title": "6" }
+{ "index": { "_id": 7 }}
+{ "title": "7" }
+{ "index": { "_id": 8 }}
+{ "title": "8" }
+{ "index": { "_id": 9 }}
+{ "title": "9" }
+{ "index": { "_id": 10 }}
+{ "title": "10" }
+{ "index": { "_id": 11 }}
+{ "title": "11" }
+{ "index": { "_id": 12 }}
+{ "title": "12" }
+{ "index": { "_id": 13 }}
+{ "title": "13" }
+{ "index": { "_id": 14 }}
+{ "title": "14" }
+{ "index": { "_id": 15 }}
+
+# get all: returns 10
+GET /paging/data/_search
+{
+}
+
+# get 3
+GET /paging/data/_search
+{
+  "size": 3, 
+  "from": 10
+}
+
+# get first 3
+GET /paging/data/_search
+{
+  "size": 3, 
+  "from": 0
+}
+
+# get page two by 3
+GET /paging/data/_search
+{
+  "size": 3, 
+  "from": 3
+}
+
+# same as request parameter
+GET /paging/data/_search?size=3&from=3

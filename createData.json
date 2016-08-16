@@ -1,0 +1,93 @@
+########################################
+ 
+# Create data1 index 
+POST /data1
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "demoAnalyzer": {
+          "type": "standard",
+          "filter": "demoFilter"
+        }
+      },
+      "filter": {
+        "demoFilter": {
+          "type": "lowercase"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "customer": {
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "analyzer": "demoAnalyzer"
+        },
+        "lastName": {
+          "type": "string",
+          "analyzer": "demoAnalyzer"
+        },
+        "birthday": {
+          "type": "date",
+          "format": "yyyy-MM-dd"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string",
+          "analyzer": "demoAnalyzer"
+        },
+        "city": {
+          "type": "string",
+          "analyzer": "demoAnalyzer"
+        },
+        "zipCode": {
+          "type": "string",
+          "analyzer": "demoAnalyzer"
+        },
+        "tags": {
+          "type": "string",
+          "store": "yes",
+          "index": "not_analyzed"
+        }
+      }
+    }
+  }
+}
+
+PUT /data1/customer/hanno@nym.org
+{
+  "firstName": "Hanno",
+  "lastName": "Nym",
+  "birthday": "1970-01-01",
+  "street": "Mainstreet",
+  "city": "Königsworchesterhausen",
+  "zipcode": "15711",
+  "tags": ["notMuchKnownAbout", "shy", "softie"]
+}
+
+PUT /data1/customer/chuck@norisbank.com
+{
+  "firstName": "Chuck",
+  "lastName": "Noris",
+  "birthday": "1949-04-01",
+  "street": "Mainstreet",
+  "city": "London",
+  "zipcode": "?????",
+  "tags": ["conman", "premium"]
+}
+
+PUT /data1/customer/chuck@norris.com
+{
+  "firstName": "Chuck",
+  "lastName": "Norris",
+  "birthday": "1940-03-11",
+  "street": "Mainstreet",
+  "city": "Ryan",
+  "zipcode": "73565",
+  "tags": ["badass", "premium"]
+}
+

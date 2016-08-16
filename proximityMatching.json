@@ -1,0 +1,47 @@
+DELETE /proximity
+
+PUT /proximity
+
+# Index some example docs
+POST /proximity/data/_bulk
+{ "index": { "_id": 1 }}
+{ "title": "The quick brown fox" }
+{ "index": { "_id": 2 }}
+{ "title": "The quick brown fox jumps over the lazy dog" }
+{ "index": { "_id": 3 }}
+{ "title": "The quick brown fox jumps over the quick dog" }
+{ "index": { "_id": 4 }}
+{ "title": "Brown fox brown dog" }
+
+# match_phrase query
+GET /proximity/data/_search
+{
+  "query": {
+    "match_phrase": {
+      "title": "quick brown fox"
+    }
+  }
+}
+
+# match query, type phrase
+GET /proximity/data/_search
+{
+  "query": {
+    "match": {
+      "title": {
+        "type": "phrase",
+        "query": "quick brown fox"
+      }
+    }
+  }
+}
+
+# match_phrase query
+GET /proximity/data/_search
+{
+  "query": {
+    "match_phrase": {
+      "title": "fox brown"
+    }
+  }
+}

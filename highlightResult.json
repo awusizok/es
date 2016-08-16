@@ -1,0 +1,64 @@
+
+DELETE /highlight
+
+PUT /highlight
+
+POST /highlight/data/_bulk
+{ "index": { "_id": 1 }}
+{ "title": "The quick brown fox" }
+{ "index": { "_id": 2 }}
+{ "title": "The quick brown fox jumps over the lazy dog" }
+{ "index": { "_id": 3 }}
+{ "title": "The quick brown fox jumps over the quick dog" }
+{ "index": { "_id": 4 }}
+{ "title": "Brown fox brown dog" }
+
+# Without highlighting
+GET /highlight/data/_search
+{
+  "query": {
+    "match": {
+      "title": "BROWN DOG!"
+    }
+  }
+}
+
+# With highlighting
+GET /highlight/data/_search
+{
+  "query": {
+    "match": {
+      "title": "BROWN DOG!"
+    }
+  },
+  "highlight": {
+    "fields": {
+      "title": {
+        "type": "plain"
+      }
+    }
+  }
+}
+
+# Different highlight code
+GET /highlight/data/_search
+{
+  "query": {
+    "match": {
+      "title": "BROWN DOG!"
+    }
+  },
+  "highlight": {
+    "fields": {
+      "title": {
+        "type": "plain"
+      }
+    },
+    "pre_tags": [
+      "<span class='search highlight'>"
+    ],
+    "post_tags": [
+      "</span>"
+    ]
+  }
+}
