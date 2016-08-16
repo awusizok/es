@@ -1,0 +1,7 @@
+# createIndexes
+DELETE /foo
+DELETE /foobar
+DELETE /bar
+
+# createDocuments
+DELETE /fubar

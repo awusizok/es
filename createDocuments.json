@@ -1,0 +1,58 @@
+########################################
+ 
+# Create the index
+PUT /fubar
+
+# Create a document of type first adding the type implicitely
+POST /fubar/first
+{
+  locicalId: "doc1",
+  aString : "this is a string",
+  aNumber : 42,
+  aBoolean : true
+}
+
+# show fubar metadata
+GET /fubar
+
+# show documents in first index
+GET /fubar/_search?pretty
+
+########################################
+
+# add another document of first type, but force its _id and add another property
+POST /fubar/first/magic-identifier
+{
+  locicalId: "doc2",
+  aString : "this is a string too",
+  specialField: "this is so special!",
+  aNumber : 42,
+  aBoolean : false
+}
+
+# show fubar metadata: specialfield occurs
+GET /fubar
+
+# show documents in first index
+GET /fubar/_search?pretty
+
+########################################
+# add a second type to the index explicitely
+
+PUT /fubar/_mapping/second
+{
+  "properties": {
+    "theName": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "amount": {
+      "type":"integer"
+    }
+  }
+}
+
+# show fubar metadata
+GET /fubar

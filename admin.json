@@ -1,0 +1,11 @@
+# show the cluster health
+GET /_cluster/health
+
+# list all indexes
+GET /_cat/indices
+
+# list all aliases
+GET /_aliases
+
+GET _cat/aliases
+

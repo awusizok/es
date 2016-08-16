@@ -1,0 +1,61 @@
+########################################
+
+# Create the foo index w/ default settings (shards=5, replicas=1)
+PUT /foo
+
+# show index state: is yellow due to the replica cannot be allocated in a single node cluster
+GET /_cat/indices/foo
+
+# same with different shard sizes
+PUT /foobar
+{
+   "settings" : {
+      "number_of_shards" : 10,
+      "number_of_replicas" : 2
+   }
+}
+
+#same
+GET /_cat/indices
+
+########################################
+
+# "repair" foo: set replica amount=0
+PUT /foo/_settings
+{
+   "index" : {
+      "number_of_replicas" : 0
+   }
+}
+
+# it gets green
+GET /_cat/indices/foo
+
+########################################
+
+# create the bar index w/o replicas
+PUT /bar
+{
+   "settings" : {
+      "number_of_replicas" : 0
+   }
+}
+
+# the bar index is green
+GET /_cat/indices
+
+########################################
+
+# show the cluster health: unassigned shards
+GET /_cluster/health
+
+########################################
+
+# create an index to be deleted
+PUT /thefatalmistakeimade
+GET /_cat/indices
+
+# delete it
+DELETE /thefatalmistakeimade
+GET /_cat/indices
+
