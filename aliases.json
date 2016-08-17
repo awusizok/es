@@ -16,7 +16,7 @@ POST /company2/customer/rt
 {
   "email": "reni@tent.de",
   "fullName" : "Reni Tent",
-  "saltedPasswordHash" : "heretoo",
+  "saltedPasswordHash" : "heretoo"
 }
 
 
@@ -30,5 +30,4 @@ GET _cat/aliases
 # search in all companies via alias
 GET /companies/customer/_search?pretty
 
-GET _cat/aliases
 

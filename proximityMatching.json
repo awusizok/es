@@ -45,3 +45,16 @@ GET /proximity/data/_search
     }
   }
 }
+
+# closer is better
+POST /proximity/data/_search
+{
+   "query": {
+      "match_phrase": {
+         "title": {
+            "query": "quick dog",
+            "slop":  50 
+         }
+      }
+   }
+}
